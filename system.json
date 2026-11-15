@@ -1,0 +1,21 @@
+{
+  "id": "fists-of-the-four-isles",
+  "title": "Fists of the Four Isles!",
+  "description": "A Multicultural Martial Arts Action Game.",
+  "version": "0.1.0",
+  "compatibility": {
+    "minimum": 14,
+    "verified": 14
+  },
+  "esmodules": ["fists-of-the-four-isles.mjs"],
+  "languages": [{
+    "lang": "en",
+    "name": "English",
+    "path": "lang/en.json"
+  }],
+  "documentTypes": {
+    "Actor": {
+      "character": {}
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Foundry in Chrome (localhost:3030)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3030",
+      // Foundry serves this repo at /systems/fists-of-the-four-isles, so breakpoints set in these files bind to the scripts Chrome loads.
+      "pathMapping": {
+        "/systems/fists-of-the-four-isles": "${workspaceFolder}"
+      }
+    }
+  ]
+}
