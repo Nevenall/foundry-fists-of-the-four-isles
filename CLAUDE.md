@@ -59,6 +59,6 @@ Last step — Foundry's own source, matching the installed version, under `C:\Pr
 - `client\` — the client API: applications and sheets, canvas, dice, documents, `hooks.mjs`, `config.mjs`.
 - `common\` — shared code: `abstract\` (DataModel, TypeDataModel, Document), `data\` (fields), `documents\` (base document schemas), `packages\` (manifest schemas), `constants.mjs`.
 
-Example system the knowledge base points to as a feature-complete open-source reference: https://github.com/foundryvtt/dnd5e
+Reference implementation, for seeing how a working system does something: https://github.com/foundryvtt/dnd5e — the knowledge base's example of a fairly feature-complete system. It is far more complex and customised than this system needs. Keep this system simple: take from it the smallest pattern that does the job.
 
 WebFetch returns a summary of these pages and leaves out the code examples. To read an example exactly, download the page's raw HTML and read that.
