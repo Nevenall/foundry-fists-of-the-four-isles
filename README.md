@@ -2,7 +2,7 @@
 
 A Multicultural Martial Arts Action Game, implemented as a game system for [Foundry Virtual Tabletop](https://foundryvtt.com/).
 
-Both the game and this system are works in progress. The system currently declares one Actor type, `character`. Its data model holds notes, fate points, traits, martial arts styles, techniques and maneuvers.
+Both the game and this system are works in progress. The system currently declares one Actor type, `character`. Its data model holds notes, fate points, traits, martial arts styles, techniques and maneuvers, and its character sheet edits all of them.
 
 ## Requirements
 
@@ -27,8 +27,11 @@ With a Foundry server running on port 3030, run the **Foundry in Chrome (localho
 | Path | Purpose |
 |---|---|
 | `system.json` | The system manifest. |
-| `fists-of-the-four-isles.mjs` | Entry point. Registers the data models when Foundry initialises. |
+| `fists-of-the-four-isles.mjs` | Entry point. Registers the data models and the character sheet when Foundry initialises. |
 | `module/data-models.mjs` | Data models for the `character` Actor type and for the traits, styles, techniques and maneuvers stored inside it. |
+| `module/character-sheet.mjs` | The sheet for the `character` Actor type. |
+| `templates/character-sheet/` | Handlebars templates for the character sheet: one per sheet part, plus `entry-list.hbs`, the partial for a list of techniques or maneuvers. |
+| `styles/fists-of-the-four-isles.css` | The system stylesheet. |
 | `lang/en.json` | English strings. |
 
 ## References
@@ -36,3 +39,4 @@ With a Foundry server running on port 3030, run the **Foundry in Chrome (localho
 - [Introduction to System Development](https://foundryvtt.com/article/system-development/)
 - [Introduction to System Data Models](https://foundryvtt.com/article/system-data-models/)
 - [Foundry VTT API reference](https://foundryvtt.com/api/)
+- [Applications guide](https://foundryvtt.com/api/modules/foundry.applications.html) and [Document Sheets guide](https://foundryvtt.com/api/modules/foundry.applications.sheets.html), in the API reference

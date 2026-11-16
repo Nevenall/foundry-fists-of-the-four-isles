@@ -1,3 +1,42 @@
 {
-  "TYPES.Actor.character": "Character"
+  "TYPES.Actor.character": "Character",
+  "FISTS": {
+    "Sheets": {
+      "Character": "Character Sheet"
+    },
+    "FatePoints": {
+      "Title": "Fate Points",
+      "Value": "Current",
+      "Refresh": "Refresh"
+    },
+    "Traits": {
+      "Title": "Traits",
+      "AddTrait": "Add Trait",
+      "AddStyle": "Add Style"
+    },
+    "Trait": {
+      "Name": "Trait",
+      "Rating": "Rating",
+      "Trouble": "Trouble",
+      "Desire": "Desire",
+      "Magic": "Magic",
+      "Style": "Style"
+    },
+    "Techniques": {
+      "Title": "Techniques",
+      "Independent": "Independent Techniques"
+    },
+    "Maneuvers": {
+      "Title": "Maneuvers"
+    },
+    "Entry": {
+      "Name": "Name",
+      "Description": "Description",
+      "Add": "Add",
+      "Delete": "Delete"
+    },
+    "Notes": {
+      "Title": "Notes"
+    }
+  }
 }

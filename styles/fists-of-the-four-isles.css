@@ -1,0 +1,89 @@
+/* Character sheet */
+
+.fists-of-the-four-isles.character-sheet .sheet-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacer-16);
+}
+
+.fists-of-the-four-isles.character-sheet fieldset {
+  flex: none;
+}
+
+.fists-of-the-four-isles.character-sheet .entries {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fists-of-the-four-isles.character-sheet .entries:empty {
+  display: none;
+}
+
+.fists-of-the-four-isles.character-sheet .trait {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid var(--color-fieldset-border);
+  border-radius: 6px;
+}
+
+.fists-of-the-four-isles.character-sheet .entry-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.fists-of-the-four-isles.character-sheet .entry-row > input[type="text"] {
+  flex: 1;
+}
+
+.fists-of-the-four-isles.character-sheet .entry-row > input[type="number"] {
+  flex: 0 0 3.5rem;
+  text-align: center;
+}
+
+.fists-of-the-four-isles.character-sheet .entry-row > button {
+  flex: none;
+}
+
+.fists-of-the-four-isles.character-sheet .flag {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex: none;
+}
+
+.fists-of-the-four-isles.character-sheet .style-tag {
+  flex: none;
+  padding: 0 0.5rem;
+  border: 1px solid var(--color-fieldset-border);
+  border-radius: 1rem;
+  font-size: var(--font-size-12);
+}
+
+.fists-of-the-four-isles.character-sheet .entry-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fists-of-the-four-isles.character-sheet .trait .entry-list {
+  margin-left: 1.5rem;
+}
+
+.fists-of-the-four-isles.character-sheet .entry-list-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.fists-of-the-four-isles.character-sheet .entry-list-header h4 {
+  margin: 0;
+}

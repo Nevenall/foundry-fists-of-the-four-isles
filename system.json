@@ -10,6 +10,9 @@
   "esmodules": [
     "fists-of-the-four-isles.mjs"
   ],
+  "styles": [
+    "styles/fists-of-the-four-isles.css"
+  ],
   "languages": [
     {
       "lang": "en",

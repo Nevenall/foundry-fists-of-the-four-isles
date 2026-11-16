@@ -1,0 +1,15 @@
+<div class="entry-list">
+  <div class="entry-list-header">
+    <h4>{{localize title}}</h4>
+    <button type="button" class="inline-control icon fa-solid fa-plus" data-action="addEntry" data-collection="{{collection}}" data-kind="{{kind}}" data-tooltip aria-label="{{localize "FISTS.Entry.Add"}}"></button>
+  </div>
+  <ul class="entries">
+    {{#each entries as |entry|}}
+    <li class="entry-row">
+      {{formInput entry.fields.name name=entry.names.name value=entry.source.name placeholder=(localize "FISTS.Entry.Name") aria=(object label=(localize "FISTS.Entry.Name"))}}
+      {{formInput entry.fields.description name=entry.names.description value=entry.source.description placeholder=(localize "FISTS.Entry.Description") aria=(object label=(localize "FISTS.Entry.Description"))}}
+      <button type="button" class="inline-control icon fa-solid fa-trash" data-action="deleteEntry" data-collection="{{entry.collection}}" data-entry-id="{{entry.id}}" data-tooltip aria-label="{{localize "FISTS.Entry.Delete"}}"></button>
+    </li>
+    {{/each}}
+  </ul>
+</div>
