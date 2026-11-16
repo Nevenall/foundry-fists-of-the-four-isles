@@ -2,7 +2,7 @@
 
 A Multicultural Martial Arts Action Game, implemented as a game system for [Foundry Virtual Tabletop](https://foundryvtt.com/).
 
-Both the game and this system are works in progress. The system currently declares one Actor type, `character`, with an empty data model.
+Both the game and this system are works in progress. The system currently declares one Actor type, `character`. Its data model holds notes, fate points, traits, martial arts styles, techniques and maneuvers.
 
 ## Requirements
 
@@ -28,7 +28,7 @@ With a Foundry server running on port 3030, run the **Foundry in Chrome (localho
 |---|---|
 | `system.json` | The system manifest. |
 | `fists-of-the-four-isles.mjs` | Entry point. Registers the data models when Foundry initialises. |
-| `module/data-models.mjs` | Data models for the system's Actor types. |
+| `module/data-models.mjs` | Data models for the `character` Actor type and for the traits, styles, techniques and maneuvers stored inside it. |
 | `lang/en.json` | English strings. |
 
 ## References
