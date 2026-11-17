@@ -38,6 +38,7 @@ export class TraitModel extends foundry.abstract.DataModel {
     return {
       type: typeField("trait"),
       name: new StringField({ required: true }),
+      description: new StringField({ required: true }),
       rating: new NumberField({ required: true, nullable: false, integer: true, min: 0, initial: 0 }),
       trouble: new BooleanField(),
       desire: new BooleanField(),
