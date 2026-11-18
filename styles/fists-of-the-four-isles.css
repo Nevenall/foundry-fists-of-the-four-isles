@@ -106,12 +106,64 @@
   border: 1px solid var(--color-fieldset-border);
   border-radius: 1rem;
   font-size: var(--font-size-12);
+  white-space: nowrap;
+}
+
+/* In play mode the traits share one grid, so that each kind of tag and the roll button keep to a column of their own down the whole list. The columns are spaced by the margins of what they hold, so a column that no trait uses takes up no room. */
+.fists-of-the-four-isles.character-sheet .trait-grid {
+  display: grid;
+  grid-template-columns: [title] 1fr [style] auto [trouble] auto [desire] auto [magic] auto [roll] auto;
+  column-gap: 0;
+}
+
+.fists-of-the-four-isles.character-sheet .trait-grid > .trait,
+.fists-of-the-four-isles.character-sheet .trait-heading {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  column-gap: 0;
+}
+
+.fists-of-the-four-isles.character-sheet .trait-grid > .trait > * {
+  grid-column: 1 / -1;
 }
 
 .fists-of-the-four-isles.character-sheet .trait-heading {
-  display: flex;
   align-items: center;
-  gap: 0.5rem;
+}
+
+.fists-of-the-four-isles.character-sheet .trait-title {
+  grid-column: title;
+  min-width: 0;
+}
+
+.fists-of-the-four-isles.character-sheet .trait-heading > .tag,
+.fists-of-the-four-isles.character-sheet .trait-heading > button {
+  margin-left: 0.5rem;
+}
+
+.fists-of-the-four-isles.character-sheet .trait-heading > .tag {
+  justify-self: start;
+}
+
+.fists-of-the-four-isles.character-sheet .trait-heading > .tag-style {
+  grid-column: style;
+}
+
+.fists-of-the-four-isles.character-sheet .trait-heading > .tag-trouble {
+  grid-column: trouble;
+}
+
+.fists-of-the-four-isles.character-sheet .trait-heading > .tag-desire {
+  grid-column: desire;
+}
+
+.fists-of-the-four-isles.character-sheet .trait-heading > .tag-magic {
+  grid-column: magic;
+}
+
+.fists-of-the-four-isles.character-sheet .trait-heading > button {
+  grid-column: roll;
 }
 
 .fists-of-the-four-isles.character-sheet .trait-name,
@@ -121,7 +173,7 @@
 }
 
 .fists-of-the-four-isles.character-sheet .trait-rating {
-  margin-right: auto;
+  margin-left: 0.25rem;
 }
 
 .fists-of-the-four-isles.character-sheet .trait p {
@@ -235,7 +287,7 @@
 /* The border sits outside the row, so that the row's contents stay in line with the rows below it. */
 .fists-of-the-four-isles.roll-card .die-result {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   margin: 0 calc(-0.25rem - 2px);
   padding: 0 0.25rem;
@@ -245,6 +297,10 @@
 
 .fists-of-the-four-isles.roll-card .die-result.higher {
   border-color: currentColor;
+}
+
+.fists-of-the-four-isles.roll-card .die-size {
+  font-size: var(--font-size-20);
 }
 
 .fists-of-the-four-isles.roll-card .die-total {

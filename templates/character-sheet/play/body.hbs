@@ -2,17 +2,16 @@
   {{#if traits.length}}
   <fieldset>
     <legend>{{localize "FISTS.Traits.Title"}}</legend>
-    <ul class="entries">
+    <ul class="entries trait-grid">
       {{#each traits as |trait|}}
       <li class="trait">
         <div class="trait-heading">
+          <span class="trait-title"><span class="trait-name">{{trait.source.name}}</span>&nbsp;<span class="trait-rating">{{trait.source.rating}}</span></span>
+          {{#if trait.isStyle}}<span class="tag tag-style">{{localize "FISTS.Trait.Style"}}</span>{{/if}}
+          {{#if trait.source.trouble}}<span class="tag tag-trouble">{{localize (concat "FISTS.Trouble.Tags." trait.source.trouble)}}</span>{{/if}}
+          {{#if trait.source.desire}}<span class="tag tag-desire">{{localize "FISTS.Trait.Desire"}}</span>{{/if}}
+          {{#if trait.source.magic}}<span class="tag tag-magic">{{localize "FISTS.Trait.Magic"}}</span>{{/if}}
           <button type="button" class="inline-control icon fa-solid fa-dice" data-action="rollTrait" data-entry-id="{{trait.id}}" data-tooltip aria-label="{{localize "FISTS.Trait.Roll" name=trait.source.name}}"></button>
-          <span class="trait-name">{{trait.source.name}}</span>
-          <span class="trait-rating">{{trait.source.rating}}</span>
-          {{#if trait.isStyle}}<span class="tag">{{localize "FISTS.Trait.Style"}}</span>{{/if}}
-          {{#if trait.source.trouble}}<span class="tag">{{localize (concat "FISTS.Trouble.Tags." trait.source.trouble)}}</span>{{/if}}
-          {{#if trait.source.desire}}<span class="tag">{{localize "FISTS.Trait.Desire"}}</span>{{/if}}
-          {{#if trait.source.magic}}<span class="tag">{{localize "FISTS.Trait.Magic"}}</span>{{/if}}
         </div>
         {{#if trait.source.description}}<p>{{trait.source.description}}</p>{{/if}}
         {{#each trait.lists as |list|}}
