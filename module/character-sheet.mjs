@@ -81,7 +81,7 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   /** @inheritDoc */
   _configureRenderOptions(options) {
     if ( !this.isEditable ) this.#mode = "play";
-    else if ( options.isFirstRender && foundry.utils.isEmpty(this.actor.system.traits) ) this.#mode = "edit";
+    else if ( options.renderContext === "createActor" ) this.#mode = "edit";
     super._configureRenderOptions(options);
   }
 

@@ -84,6 +84,11 @@
   text-align: center;
 }
 
+.fists-of-the-four-isles.character-sheet .entry-row > select {
+  flex: none;
+  width: auto;
+}
+
 .fists-of-the-four-isles.character-sheet .entry-row > button {
   flex: none;
 }

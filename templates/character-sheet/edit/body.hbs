@@ -7,11 +7,13 @@
         <div class="entry-row">
           {{formInput trait.fields.name name=trait.names.name value=trait.source.name placeholder=(localize "FISTS.Trait.Name") aria=(object label=(localize "FISTS.Trait.Name"))}}
           {{formInput trait.fields.rating name=trait.names.rating value=trait.source.rating aria=(object label=(localize "FISTS.Trait.Rating"))}}
-          <label class="flag">{{formInput trait.fields.trouble name=trait.names.trouble value=trait.source.trouble}} {{localize "FISTS.Trait.Trouble"}}</label>
+          <button type="button" class="inline-control icon fa-solid fa-trash" data-action="deleteEntry" data-collection="{{trait.collection}}" data-entry-id="{{trait.id}}" data-tooltip aria-label="{{localize "FISTS.Entry.Delete"}}"></button>
+        </div>
+        <div class="entry-row">
+          {{formInput trait.fields.trouble name=trait.names.trouble value=trait.source.trouble blank="FISTS.Trouble.None" localize=true aria=(object label=(localize "FISTS.Trait.Trouble"))}}
           <label class="flag">{{formInput trait.fields.desire name=trait.names.desire value=trait.source.desire}} {{localize "FISTS.Trait.Desire"}}</label>
           <label class="flag">{{formInput trait.fields.magic name=trait.names.magic value=trait.source.magic}} {{localize "FISTS.Trait.Magic"}}</label>
           {{#if trait.isStyle}}<span class="tag">{{localize "FISTS.Trait.Style"}}</span>{{/if}}
-          <button type="button" class="inline-control icon fa-solid fa-trash" data-action="deleteEntry" data-collection="{{trait.collection}}" data-entry-id="{{trait.id}}" data-tooltip aria-label="{{localize "FISTS.Entry.Delete"}}"></button>
         </div>
         {{formInput trait.fields.description name=trait.names.description value=trait.source.description placeholder=(localize "FISTS.Entry.Description") aria=(object label=(localize "FISTS.Entry.Description"))}}
         {{#each trait.lists as |list|}}

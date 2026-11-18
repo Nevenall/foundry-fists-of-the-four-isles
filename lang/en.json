@@ -24,6 +24,23 @@
       "Magic": "Magic",
       "Style": "Style"
     },
+    "Trouble": {
+      "None": "No trouble",
+      "Choices": {
+        "negative": "Trouble: only negative",
+        "doubleSided": "Trouble: double-sided"
+      },
+      "Tags": {
+        "negative": "Trouble",
+        "doubleSided": "Double-sided Trouble"
+      }
+    },
+    "StartingTraits": {
+      "Physique": "Physique",
+      "Movement": "Movement",
+      "Fighting": "Fighting",
+      "Shooting": "Shooting"
+    },
     "Techniques": {
       "Title": "Techniques",
       "Independent": "Independent Techniques"

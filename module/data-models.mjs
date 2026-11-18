@@ -40,11 +40,19 @@ export class TraitModel extends foundry.abstract.DataModel {
       name: new StringField({ required: true }),
       description: new StringField({ required: true }),
       rating: new NumberField({ required: true, nullable: false, integer: true, min: 0, initial: 0 }),
-      trouble: new BooleanField(),
+      // Blank for a trait that is not a trouble. A trouble is either only negative or double-sided: one with a positive side as well.
+      trouble: new StringField({ required: true, blank: true, choices: { negative: "FISTS.Trouble.Choices.negative", doubleSided: "FISTS.Trouble.Choices.doubleSided" } }),
       desire: new BooleanField(),
       magic: new BooleanField(),
       techniques: new TypedObjectField(new EmbeddedDataField(TechniqueModel))
     };
+  }
+
+  /** @inheritDoc */
+  static migrateData(source, options) {
+    // Stored data may hold `trouble` as a boolean, where true marks a trouble of unrecorded kind. It becomes an only negative trouble.
+    if ( typeof source.trouble === "boolean" ) source.trouble = source.trouble ? "negative" : "";
+    return super.migrateData(source, options);
   }
 }
 
@@ -62,6 +70,19 @@ export class StyleModel extends TraitModel {
 /*  Actor Models                                */
 /* -------------------------------------------- */
 
+/**
+ * The traits a character starts with: the key of each trait's name in FISTS.StartingTraits, and its rating.
+ */
+const STARTING_TRAITS = { Physique: 1, Movement: 1, Fighting: 0, Shooting: 0 };
+
+/**
+ * Build the trait collection of a character that is created without one.
+ * @returns {Record<string, object>}
+ */
+function startingTraits() {
+  return Object.fromEntries(Object.entries(STARTING_TRAITS).map(([key, rating]) => [foundry.utils.randomID(), new TraitModel({ name: game.i18n.localize(`FISTS.StartingTraits.${key}`), rating }).toObject()]));
+}
+
 export class CharacterDataModel extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {
@@ -70,7 +91,7 @@ export class CharacterDataModel extends foundry.abstract.TypeDataModel {
         value: new NumberField({ required: true, nullable: false, integer: true, min: 0, initial: 0 }),
         refresh: new NumberField({ required: true, nullable: false, min: 0, initial: 0 })
       }),
-      traits: new TypedObjectField(new TypedSchemaField({ trait: TraitModel, style: StyleModel })),
+      traits: new TypedObjectField(new TypedSchemaField({ trait: TraitModel, style: StyleModel }), { initial: startingTraits }),
       techniques: new TypedObjectField(new EmbeddedDataField(TechniqueModel))
     };
   }
