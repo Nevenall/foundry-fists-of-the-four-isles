@@ -6,6 +6,7 @@
       {{#each traits as |trait|}}
       <li class="trait">
         <div class="trait-heading">
+          <button type="button" class="inline-control icon fa-solid fa-dice" data-action="rollTrait" data-entry-id="{{trait.id}}" data-tooltip aria-label="{{localize "FISTS.Trait.Roll" name=trait.source.name}}"></button>
           <span class="trait-name">{{trait.source.name}}</span>
           <span class="trait-rating">{{trait.source.rating}}</span>
           {{#if trait.isStyle}}<span class="tag">{{localize "FISTS.Trait.Style"}}</span>{{/if}}

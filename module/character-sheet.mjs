@@ -1,4 +1,5 @@
 import { ManeuverModel, StyleModel, TechniqueModel, TraitModel } from "./data-models.mjs";
+import { RollDialog } from "./roll-dialog.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
@@ -50,7 +51,8 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     actions: {
       addEntry: this.#onAddEntry,
       changeMode: this.#onChangeMode,
-      deleteEntry: this.#onDeleteEntry
+      deleteEntry: this.#onDeleteEntry,
+      rollTrait: this.#onRollTrait
     }
   };
 
@@ -189,5 +191,18 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   static async #onDeleteEntry(event, target) {
     const { collection, entryId } = target.dataset;
     await this.actor.update({ [collection]: { [entryId]: _del } });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Open the roll dialog with the trait named by the clicked button as the basis.
+   * @this {CharacterSheet}
+   * @param {PointerEvent} event  The originating click event
+   * @param {HTMLElement} target  The element which defines the [data-action]
+   */
+  static async #onRollTrait(event, target) {
+    const trait = this.actor.system.traits[target.dataset.entryId];
+    await this.renderChild(new RollDialog({ actor: this.actor, flavor: trait.name, basis: trait.rating }));
   }
 }

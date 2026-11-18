@@ -1,0 +1,20 @@
+<div class="roll-halves">
+  {{#each halves as |half|}}
+  <fieldset class="roll-half">
+    <legend>{{localize half.label}}</legend>
+    <div class="die-stepper">
+      <button type="button" class="icon fa-solid fa-minus" name="{{half.die}}-down" data-action="stepDie" data-die="{{half.die}}" data-step="-1" data-tooltip aria-label="{{localize "FISTS.Roll.StepDown"}}" {{disabled half.smallest}}></button>
+      <span class="die-size"><i class="fa-solid fa-dice-{{half.size}}" inert></i> {{half.size}}</span>
+      <button type="button" class="icon fa-solid fa-plus" name="{{half.die}}-up" data-action="stepDie" data-die="{{half.die}}" data-step="1" data-tooltip aria-label="{{localize "FISTS.Roll.StepUp"}}" {{disabled half.largest}}></button>
+    </div>
+    {{#each half.fields as |field|}}
+    <div class="form-group">
+      <label for="{{@root.partId}}-{{field.name}}">{{localize field.label}}</label>
+      <div class="form-fields">
+        <input type="number" id="{{@root.partId}}-{{field.name}}" name="{{field.name}}" value="{{field.value}}" step="any">
+      </div>
+    </div>
+    {{/each}}
+  </fieldset>
+  {{/each}}
+</div>

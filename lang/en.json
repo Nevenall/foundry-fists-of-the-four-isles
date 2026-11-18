@@ -22,7 +22,27 @@
       "Trouble": "Trouble",
       "Desire": "Desire",
       "Magic": "Magic",
-      "Style": "Style"
+      "Style": "Style",
+      "Roll": "Roll {name}"
+    },
+    "Roll": {
+      "Title": "Roll",
+      "Form": "Form",
+      "Void": "Void",
+      "StepUp": "Step up",
+      "StepDown": "Step down",
+      "Basis": "Basis",
+      "Support": "Support",
+      "Resistance": "Resistance",
+      "Roll": "Roll",
+      "Higher": {
+        "form": "Form die is higher",
+        "void": "Void die is higher",
+        "equal": "Form and Void dice are equal"
+      },
+      "Effort": "Effort",
+      "Opposition": "Opposition",
+      "Result": "Result"
     },
     "Trouble": {
       "None": "No trouble",
