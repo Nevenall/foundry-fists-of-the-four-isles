@@ -1,10 +1,4 @@
 <section class="sheet-body scrollable">
-  <fieldset class="input-grid">
-    <legend>{{localize "FISTS.FatePoints.Title"}}</legend>
-    {{formGroup systemFields.fatePoints.fields.value value=source.system.fatePoints.value label="FISTS.FatePoints.Value" localize=true rootId=rootId}}
-    {{formGroup systemFields.fatePoints.fields.refresh value=source.system.fatePoints.refresh label="FISTS.FatePoints.Refresh" localize=true rootId=rootId}}
-  </fieldset>
-
   <fieldset>
     <legend>{{localize "FISTS.Traits.Title"}}</legend>
     <ul class="entries">
@@ -16,12 +10,12 @@
           <label class="flag">{{formInput trait.fields.trouble name=trait.names.trouble value=trait.source.trouble}} {{localize "FISTS.Trait.Trouble"}}</label>
           <label class="flag">{{formInput trait.fields.desire name=trait.names.desire value=trait.source.desire}} {{localize "FISTS.Trait.Desire"}}</label>
           <label class="flag">{{formInput trait.fields.magic name=trait.names.magic value=trait.source.magic}} {{localize "FISTS.Trait.Magic"}}</label>
-          {{#if trait.isStyle}}<span class="style-tag">{{localize "FISTS.Trait.Style"}}</span>{{/if}}
+          {{#if trait.isStyle}}<span class="tag">{{localize "FISTS.Trait.Style"}}</span>{{/if}}
           <button type="button" class="inline-control icon fa-solid fa-trash" data-action="deleteEntry" data-collection="{{trait.collection}}" data-entry-id="{{trait.id}}" data-tooltip aria-label="{{localize "FISTS.Entry.Delete"}}"></button>
         </div>
         {{formInput trait.fields.description name=trait.names.description value=trait.source.description placeholder=(localize "FISTS.Entry.Description") aria=(object label=(localize "FISTS.Entry.Description"))}}
         {{#each trait.lists as |list|}}
-        {{> "systems/fists-of-the-four-isles/templates/character-sheet/entry-list.hbs" list}}
+        {{> "systems/fists-of-the-four-isles/templates/character-sheet/edit/entry-list.hbs" list}}
         {{/each}}
       </li>
       {{/each}}
@@ -34,7 +28,7 @@
 
   <fieldset>
     <legend>{{localize "FISTS.Techniques.Independent"}}</legend>
-    {{> "systems/fists-of-the-four-isles/templates/character-sheet/entry-list.hbs" techniques}}
+    {{> "systems/fists-of-the-four-isles/templates/character-sheet/edit/entry-list.hbs" techniques}}
   </fieldset>
 
   <fieldset>

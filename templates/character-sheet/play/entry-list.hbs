@@ -1,0 +1,10 @@
+{{#if entries.length}}
+<div class="entry-list">
+  {{#unless (eq kind "technique")}}<h4>{{localize title}}</h4>{{/unless}}
+  <ul class="entries">
+    {{#each entries as |entry|}}
+    <li class="entry"><em>{{entry.source.name}}</em> {{entry.source.description}}</li>
+    {{/each}}
+  </ul>
+</div>
+{{/if}}

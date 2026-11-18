@@ -2,7 +2,9 @@
   "TYPES.Actor.character": "Character",
   "FISTS": {
     "Sheets": {
-      "Character": "Character Sheet"
+      "Character": "Character Sheet",
+      "Edit": "Edit sheet",
+      "Play": "Finish editing"
     },
     "FatePoints": {
       "Title": "Fate Points",

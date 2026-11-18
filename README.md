@@ -2,7 +2,7 @@
 
 A Multicultural Martial Arts Action Game, implemented as a game system for [Foundry Virtual Tabletop](https://foundryvtt.com/).
 
-Both the game and this system are works in progress. The system currently declares one Actor type, `character`. Its data model holds notes, fate points, traits, martial arts styles, techniques and maneuvers, and its character sheet edits all of them.
+Both the game and this system are works in progress. The system currently declares one Actor type, `character`. Its data model holds notes, fate points, traits, martial arts styles, techniques and maneuvers, and its character sheet has two modes: play mode presents them for use during a game, and edit mode edits all of them. A button in the sheet's title bar switches between the two.
 
 ## Requirements
 
@@ -30,7 +30,7 @@ With a Foundry server running on port 3030, run the **Foundry in Chrome (localho
 | `fists-of-the-four-isles.mjs` | Entry point. Registers the data models and the character sheet when Foundry initialises. |
 | `module/data-models.mjs` | Data models for the `character` Actor type and for the traits, styles, techniques and maneuvers stored inside it. |
 | `module/character-sheet.mjs` | The sheet for the `character` Actor type. |
-| `templates/character-sheet/` | Handlebars templates for the character sheet: one per sheet part, plus `entry-list.hbs`, the partial for a list of techniques or maneuvers. |
+| `templates/character-sheet/` | Handlebars templates for the character sheet, in a `play` folder and an `edit` folder for the sheet's two modes. Each folder holds one template per sheet part, plus `entry-list.hbs`, the partial for a list of techniques or maneuvers. |
 | `styles/fists-of-the-four-isles.css` | The system stylesheet. |
 | `lang/en.json` | English strings. |
 

@@ -1,5 +1,39 @@
 /* Character sheet */
 
+/* The scrolling body reserves a gutter for its scrollbar. The header reserves the same gutter so that both end at one right edge. */
+.fists-of-the-four-isles.character-sheet .sheet-header {
+  flex: none;
+  overflow: hidden;
+  scrollbar-gutter: stable;
+  display: grid;
+  grid-template: "img name" auto "img fate-points" 1fr / 25% 1fr;
+  align-items: start;
+  gap: 0.5rem 1rem;
+}
+
+.fists-of-the-four-isles.character-sheet .sheet-header > img {
+  grid-area: img;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
+.fists-of-the-four-isles.character-sheet .sheet-header > input {
+  grid-area: name;
+  height: initial;
+  font-size: var(--font-size-32);
+}
+
+.fists-of-the-four-isles.character-sheet .sheet-header > h1 {
+  grid-area: name;
+  margin: 0;
+  border: none;
+}
+
+.fists-of-the-four-isles.character-sheet .sheet-header > fieldset {
+  grid-area: fate-points;
+}
+
 .fists-of-the-four-isles.character-sheet .sheet-body {
   flex: 1;
   min-height: 0;
@@ -10,6 +44,7 @@
 
 .fists-of-the-four-isles.character-sheet fieldset {
   flex: none;
+  margin: 0;
 }
 
 .fists-of-the-four-isles.character-sheet .entries {
@@ -60,12 +95,32 @@
   flex: none;
 }
 
-.fists-of-the-four-isles.character-sheet .style-tag {
+.fists-of-the-four-isles.character-sheet .tag {
   flex: none;
   padding: 0 0.5rem;
   border: 1px solid var(--color-fieldset-border);
   border-radius: 1rem;
   font-size: var(--font-size-12);
+}
+
+.fists-of-the-four-isles.character-sheet .trait-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.fists-of-the-four-isles.character-sheet .trait-name,
+.fists-of-the-four-isles.character-sheet .trait-rating {
+  font-size: var(--font-size-18);
+  font-weight: bold;
+}
+
+.fists-of-the-four-isles.character-sheet .trait-rating {
+  margin-right: auto;
+}
+
+.fists-of-the-four-isles.character-sheet .trait p {
+  margin: 0;
 }
 
 .fists-of-the-four-isles.character-sheet .entry-list {
@@ -84,6 +139,20 @@
   gap: 0.5rem;
 }
 
-.fists-of-the-four-isles.character-sheet .entry-list-header h4 {
+.fists-of-the-four-isles.character-sheet .entry-list h4 {
   margin: 0;
+}
+
+.fists-of-the-four-isles.character-sheet .entry-list > h4 {
+  font-size: var(--font-size-16);
+}
+
+.fists-of-the-four-isles.character-sheet .entry {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.fists-of-the-four-isles.character-sheet .entry > em {
+  flex: none;
 }

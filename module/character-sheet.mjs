@@ -49,15 +49,62 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     form: { submitOnChange: true },
     actions: {
       addEntry: this.#onAddEntry,
+      changeMode: this.#onChangeMode,
       deleteEntry: this.#onDeleteEntry
     }
   };
 
   /** @override */
   static PARTS = {
-    header: { template: `${TEMPLATES}/header.hbs` },
-    body: { template: `${TEMPLATES}/body.hbs`, templates: [`${TEMPLATES}/entry-list.hbs`], scrollable: [""] }
+    playHeader: { template: `${TEMPLATES}/play/header.hbs` },
+    playBody: { template: `${TEMPLATES}/play/body.hbs`, templates: [`${TEMPLATES}/play/entry-list.hbs`], scrollable: [""] },
+    editHeader: { template: `${TEMPLATES}/edit/header.hbs` },
+    editBody: { template: `${TEMPLATES}/edit/body.hbs`, templates: [`${TEMPLATES}/edit/entry-list.hbs`], scrollable: [""] }
   };
+
+  /**
+   * The parts each mode renders. Play mode presents the character for use during a game; edit mode is the form that builds the character.
+   */
+  static MODE_PARTS = {
+    play: ["playHeader", "playBody"],
+    edit: ["editHeader", "editBody"]
+  };
+
+  /**
+   * The mode the sheet is in, a key of MODE_PARTS.
+   * @type {"play"|"edit"}
+   */
+  #mode = "play";
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _configureRenderOptions(options) {
+    if ( !this.isEditable ) this.#mode = "play";
+    else if ( options.isFirstRender && foundry.utils.isEmpty(this.actor.system.traits) ) this.#mode = "edit";
+    super._configureRenderOptions(options);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _configureRenderParts(options) {
+    const parts = super._configureRenderParts(options);
+    const modeParts = this.constructor.MODE_PARTS[this.#mode];
+    for ( const partId of Object.keys(parts) ) {
+      if ( !modeParts.includes(partId) ) delete parts[partId];
+    }
+    return parts;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _getFrameButtons(options) {
+    const buttons = super._getFrameButtons(options);
+    if ( this.isEditable ) buttons.unshift({ icon: "fa-solid fa-pen-to-square", label: "FISTS.Sheets.Edit", action: "changeMode" });
+    return buttons;
+  }
 
   /* -------------------------------------------- */
 
@@ -80,6 +127,41 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     context.techniques = prepareList("FISTS.Techniques.Title", "technique", "system.techniques", system.techniques, systemFields.techniques.element.fields);
     context.notesHTML = await foundry.applications.ux.TextEditor.implementation.enrichHTML(system.notes, { secrets: this.actor.isOwner, relativeTo: this.actor });
     return context;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _replaceHTML(result, content, options) {
+    const modeParts = this.constructor.MODE_PARTS[this.#mode];
+    for ( const element of content.querySelectorAll(":scope > [data-application-part]") ) {
+      if ( !modeParts.includes(element.dataset.applicationPart) ) element.remove();
+    }
+    super._replaceHTML(result, content, options);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _onRender(context, options) {
+    await super._onRender(context, options);
+    const toggle = this.element.querySelector('.window-header [data-action="changeMode"]');
+    if ( !toggle ) return;
+    const editing = this.#mode === "edit";
+    toggle.classList.toggle("fa-pen-to-square", !editing);
+    toggle.classList.toggle("fa-check", editing);
+    toggle.ariaLabel = game.i18n.localize(editing ? "FISTS.Sheets.Play" : "FISTS.Sheets.Edit");
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Switch between play mode and edit mode.
+   * @this {CharacterSheet}
+   */
+  static async #onChangeMode() {
+    this.#mode = this.#mode === "edit" ? "play" : "edit";
+    await this.render();
   }
 
   /* -------------------------------------------- */

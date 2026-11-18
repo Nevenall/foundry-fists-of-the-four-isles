@@ -1,0 +1,12 @@
+<header class="sheet-header">
+  <img src="{{source.img}}" alt="{{source.name}}">
+  <h1>{{source.name}}</h1>
+  <fieldset class="input-grid">
+    <legend>{{localize "FISTS.FatePoints.Title"}}</legend>
+    {{formGroup systemFields.fatePoints.fields.value value=source.system.fatePoints.value label="FISTS.FatePoints.Value" localize=true rootId=rootId}}
+    <div class="form-group">
+      <label>{{localize "FISTS.FatePoints.Refresh"}}</label>
+      <div class="form-fields"><span class="value">{{source.system.fatePoints.refresh}}</span></div>
+    </div>
+  </fieldset>
+</header>

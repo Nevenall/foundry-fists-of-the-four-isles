@@ -1,4 +1,9 @@
-<header class="sheet-header img-name">
+<header class="sheet-header">
   <img src="{{source.img}}" data-action="editImage" data-edit="img" alt="{{localize "DOCUMENT.FIELDS.img.label"}}">
   {{formInput fields.name value=source.name placeholder=(localize "DOCUMENT.FIELDS.name.label") aria=(object label=(localize "DOCUMENT.FIELDS.name.label"))}}
+  <fieldset class="input-grid">
+    <legend>{{localize "FISTS.FatePoints.Title"}}</legend>
+    {{formGroup systemFields.fatePoints.fields.value value=source.system.fatePoints.value label="FISTS.FatePoints.Value" localize=true rootId=rootId}}
+    {{formGroup systemFields.fatePoints.fields.refresh value=source.system.fatePoints.refresh label="FISTS.FatePoints.Refresh" localize=true rootId=rootId}}
+  </fieldset>
 </header>
