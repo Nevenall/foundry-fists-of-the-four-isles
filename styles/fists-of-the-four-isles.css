@@ -252,6 +252,7 @@
 
 .fists-of-the-four-isles.roll-dialog .form-group > .form-fields {
   flex: 0 0 5rem;
+  justify-content: center;
 }
 
 .fists-of-the-four-isles.roll-dialog .form-group input {
@@ -272,7 +273,12 @@
   gap: 0.5rem;
 }
 
+/* The two halves share the rows of their heading, die and numbers, so that the line an exploding die adds to one half keeps the numbers of both halves level. */
 .fists-of-the-four-isles.roll-card .roll-half {
+  grid-row: span 3;
+  display: grid;
+  grid-template-rows: subgrid;
+  row-gap: 0;
   padding: 0.25rem 0.5rem;
   border-radius: 6px;
   background: rgb(0 0 0 / 8%);
@@ -286,9 +292,10 @@
 
 /* The border sits outside the row, so that the row's contents stay in line with the rows below it. */
 .fists-of-the-four-isles.roll-card .die-result {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  justify-content: space-between;
+  align-content: start;
   margin: 0 calc(-0.25rem - 2px);
   padding: 0 0.25rem;
   border: 2px solid transparent;
@@ -308,10 +315,22 @@
   font-weight: bold;
 }
 
+/* A die that explodes has a line under its total: the mark of an exploding die, then every number the die rolled if it exploded. */
+.fists-of-the-four-isles.roll-card .die-explosion {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.fists-of-the-four-isles.roll-card .die-rolls {
+  text-align: right;
+}
+
 .fists-of-the-four-isles.roll-card dl,
 .fists-of-the-four-isles.roll-card dt,
-.fists-of-the-four-isles.roll-card dd,
-.fists-of-the-four-isles.roll-card .comparison {
+.fists-of-the-four-isles.roll-card dd {
   margin: 0;
 }
 
@@ -327,11 +346,6 @@
   color: inherit;
   font-weight: inherit;
   text-shadow: none;
-}
-
-.fists-of-the-four-isles.roll-card .comparison {
-  text-align: center;
-  font-weight: bold;
 }
 
 .fists-of-the-four-isles.roll-card .half-total {

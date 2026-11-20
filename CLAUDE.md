@@ -50,7 +50,11 @@ Foundry API reference (index: https://foundryvtt.com/api/):
 - TypeDataModel: https://foundryvtt.com/api/classes/foundry.abstract.TypeDataModel.html
 - Data fields: https://foundryvtt.com/api/modules/foundry.data.fields.html
 - Actor: https://foundryvtt.com/api/classes/foundry.documents.Actor.html and Item: https://foundryvtt.com/api/classes/foundry.documents.Item.html
-- Sheets — ApplicationV2: https://foundryvtt.com/api/classes/foundry.applications.api.ApplicationV2.html, HandlebarsApplicationMixin: https://foundryvtt.com/api/functions/foundry.applications.api.HandlebarsApplicationMixin.html, ActorSheetV2: https://foundryvtt.com/api/classes/foundry.applications.sheets.ActorSheetV2.html, ItemSheetV2: https://foundryvtt.com/api/classes/foundry.applications.sheets.ItemSheetV2.html
+- Applications and sheets, guides — the knowledge base has no article on sheets or ApplicationV2 (checked 2026-11-15), so the prose guides with code examples are these API namespace pages:
+  - https://foundryvtt.com/api/modules/foundry.applications.html — `DEFAULT_OPTIONS`, `actions`, `PARTS`, context preparation, `TABS`, form handling, rendering.
+  - https://foundryvtt.com/api/modules/foundry.applications.sheets.html — extending `ActorSheetV2` / `ItemSheetV2`, registering with `DocumentSheetConfig.registerSheet` in `init`, drag and drop.
+  - https://foundryvtt.com/api/modules/foundry.applications.handlebars.html — index of Foundry's Handlebars helpers, linking to a page per helper.
+- Applications and sheets, class pages (member listings) — ApplicationV2: https://foundryvtt.com/api/classes/foundry.applications.api.ApplicationV2.html, HandlebarsApplicationMixin: https://foundryvtt.com/api/functions/foundry.applications.api.HandlebarsApplicationMixin.html, ActorSheetV2: https://foundryvtt.com/api/classes/foundry.applications.sheets.ActorSheetV2.html, ItemSheetV2: https://foundryvtt.com/api/classes/foundry.applications.sheets.ItemSheetV2.html
 - Dice — Roll: https://foundryvtt.com/api/classes/foundry.dice.Roll.html
 - Hook events: https://foundryvtt.com/api/modules/hookEvents.html
 

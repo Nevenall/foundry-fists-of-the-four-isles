@@ -7,6 +7,12 @@
       <span class="die-size"><i class="fa-solid fa-dice-{{half.size}}" inert></i> {{half.size}}</span>
       <button type="button" class="icon fa-solid fa-plus" name="{{half.die}}-up" data-action="stepDie" data-die="{{half.die}}" data-step="1" data-tooltip aria-label="{{localize "FISTS.Roll.StepUp"}}" {{disabled half.largest}}></button>
     </div>
+    <div class="form-group">
+      <label for="{{@root.partId}}-{{half.explodes.name}}">{{localize "FISTS.Roll.Explodes"}}</label>
+      <div class="form-fields">
+        <input type="checkbox" id="{{@root.partId}}-{{half.explodes.name}}" name="{{half.explodes.name}}" {{checked half.explodes.value}}>
+      </div>
+    </div>
     {{#each half.fields as |field|}}
     <div class="form-group">
       <label for="{{@root.partId}}-{{field.name}}">{{localize field.label}}</label>

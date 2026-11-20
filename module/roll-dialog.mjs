@@ -13,7 +13,7 @@ const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
  */
 
 /**
- * The dialog that sets up a roll and sends it to the chat. Its Form half holds the Form die, the basis and the support; its Void half holds the Void die, the opposing basis and the resistance.
+ * The dialog that sets up a roll and sends it to the chat. Its Form half holds the Form die, the toggle that makes it explode, the basis and the support; its Void half holds the Void die, the toggle that makes it explode, the opposing basis and the resistance.
  * @example Open the dialog with the basis and the opposing basis filled in
  * new RollDialog({ basis: 3, opposingBasis: 2 }).render({ force: true });
  */
@@ -21,9 +21,9 @@ export class RollDialog extends HandlebarsApplicationMixin(ApplicationV2) {
   /**
    * @param {FistsRollConfig & RollDialogOptions & Partial<foundry.applications.types.ApplicationConfiguration>} [options]
    */
-  constructor({ formDie=6, voidDie=6, basis=0, support=0, opposingBasis=0, resistance=0, flavor, actor, ...options }={}) {
+  constructor({ formDie=6, voidDie=6, formExplodes=false, voidExplodes=false, basis=0, support=0, opposingBasis=0, resistance=0, flavor, actor, ...options }={}) {
     super(options);
-    this.#config = { formDie, voidDie, basis, support, opposingBasis, resistance };
+    this.#config = { formDie, voidDie, formExplodes, voidExplodes, basis, support, opposingBasis, resistance };
     this.#flavor = flavor;
     this.#actor = actor;
   }
@@ -47,7 +47,7 @@ export class RollDialog extends HandlebarsApplicationMixin(ApplicationV2) {
   };
 
   /**
-   * The dice and numbers of the roll being set up.
+   * The dice, toggles and numbers of the roll being set up.
    * @type {Required<FistsRollConfig>}
    */
   #config;
@@ -77,17 +77,18 @@ export class RollDialog extends HandlebarsApplicationMixin(ApplicationV2) {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     const config = this.#config;
-    const half = (label, die, fields) => ({
+    const half = (label, die, explodes, fields) => ({
       label,
       die,
       size: `d${config[die]}`,
       smallest: config[die] === DIE_SIZES.at(0),
       largest: config[die] === DIE_SIZES.at(-1),
+      explodes: { name: explodes, value: config[explodes] },
       fields: fields.map(([name, fieldLabel]) => ({ name, label: fieldLabel, value: config[name] }))
     });
     context.halves = [
-      half("FISTS.Roll.Form", "formDie", [["basis", "FISTS.Roll.Basis"], ["support", "FISTS.Roll.Support"]]),
-      half("FISTS.Roll.Void", "voidDie", [["opposingBasis", "FISTS.Roll.Basis"], ["resistance", "FISTS.Roll.Resistance"]])
+      half("FISTS.Roll.Form", "formDie", "formExplodes", [["basis", "FISTS.Roll.Basis"], ["support", "FISTS.Roll.Support"]]),
+      half("FISTS.Roll.Void", "voidDie", "voidExplodes", [["opposingBasis", "FISTS.Roll.Basis"], ["resistance", "FISTS.Roll.Resistance"]])
     ];
     context.buttons = [{ type: "submit", icon: "fa-solid fa-dice", label: "FISTS.Roll.Roll", default: true }];
     return context;
@@ -96,7 +97,7 @@ export class RollDialog extends HandlebarsApplicationMixin(ApplicationV2) {
   /* -------------------------------------------- */
 
   /**
-   * Copy the numbers in the form into the roll being set up. A blank field counts as zero.
+   * Copy the toggles and numbers in the form into the roll being set up. A blank number field counts as zero.
    * @param {foundry.applications.ux.FormDataExtended} formData
    */
   #readForm(formData) {

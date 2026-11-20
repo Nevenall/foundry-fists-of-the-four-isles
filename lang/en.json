@@ -31,15 +31,11 @@
       "Void": "Void",
       "StepUp": "Step up",
       "StepDown": "Step down",
+      "Explodes": "Explodes",
       "Basis": "Basis",
       "Support": "Support",
       "Resistance": "Resistance",
       "Roll": "Roll",
-      "Higher": {
-        "form": "Form die is higher",
-        "void": "Void die is higher",
-        "equal": "Form and Void dice are equal"
-      },
       "Effort": "Effort",
       "Opposition": "Opposition",
       "Result": "Result"

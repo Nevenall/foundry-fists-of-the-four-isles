@@ -1,5 +1,4 @@
 <div class="fists-of-the-four-isles roll-card">
-  <p class="comparison">{{localize comparison}}</p>
   <div class="roll-halves">
     {{#each halves as |half|}}
     <section class="roll-half">
@@ -7,6 +6,9 @@
       <div class="die-result{{#if half.higher}} higher{{/if}}">
         <span class="die-size"><i class="fa-solid fa-dice-{{half.size}}" inert></i> {{half.size}}</span>
         <span class="die-total">{{half.rolled}}</span>
+        {{#if half.explodes}}
+        <span class="die-explosion"><i class="fa-solid fa-burst" data-tooltip aria-label="{{localize "FISTS.Roll.Explodes"}}"></i><span class="die-rolls">{{half.rolls}}</span></span>
+        {{/if}}
       </div>
       <dl>
         {{#each half.modifiers as |modifier|}}

@@ -13,6 +13,30 @@ function formulaTerm(value) {
 }
 
 /**
+ * Write a die as a term of a roll formula. A die that explodes is rolled again each time it rolls its highest number, and every number rolled is added to its total.
+ * @param {number} size  The size of the die, one of DIE_SIZES
+ * @param {boolean} explodes  Whether the die explodes
+ * @returns {string}
+ */
+function dieTerm(size, explodes) {
+  return `1d${size}${explodes ? "x" : ""}`;
+}
+
+/**
+ * Describe a rolled die for the chat card.
+ * @param {foundry.dice.terms.Die} die
+ * @returns {{size: string, rolled: number, explodes: boolean, rolls: string|null}}  `explodes` is whether the die was set to explode. `rolls` lists every number an exploded die rolled; it is null for a die that rolled once.
+ */
+function dieContext(die) {
+  return {
+    size: `d${die.faces}`,
+    rolled: die.total,
+    explodes: die.modifiers.includes("x"),
+    rolls: die.results.length > 1 ? die.results.map(result => result.result).join(" + ") : null
+  };
+}
+
+/**
  * Round a number to the two decimal places the chat card shows.
  * @param {number} value
  * @returns {number}
@@ -25,6 +49,8 @@ function rounded(value) {
  * @typedef FistsRollConfig
  * @property {number} [formDie=6]  The size of the Form die, one of DIE_SIZES
  * @property {number} [voidDie=6]  The size of the Void die, one of DIE_SIZES
+ * @property {boolean} [formExplodes=false]  Whether the Form die explodes
+ * @property {boolean} [voidExplodes=false]  Whether the Void die explodes
  * @property {number} [basis=0]  The rating of the basis trait, added to the Effort
  * @property {number} [support=0]  The support, added to the Effort
  * @property {number} [opposingBasis=0]  The rating of the opposing trait, or the difficulty, added to the Opposition
@@ -32,7 +58,7 @@ function rounded(value) {
  */
 
 /**
- * The roll for an action. The Effort is the Form die plus the basis and the support. The Opposition is the Void die plus the opposing basis and the resistance. The roll's total is the Result: the Effort minus the Opposition.
+ * The roll for an action. The Effort is the Form die plus the basis and the support. The Opposition is the Void die plus the opposing basis and the resistance. The roll's total is the Result: the Effort minus the Opposition. Either die can explode, and its total is then the sum of every number it rolled.
  */
 export class FistsRoll extends foundry.dice.Roll {
   /** @override */
@@ -45,9 +71,9 @@ export class FistsRoll extends foundry.dice.Roll {
    * @param {FistsRollConfig} [config]
    * @returns {FistsRoll}
    */
-  static fromConfig({ formDie=6, voidDie=6, basis=0, support=0, opposingBasis=0, resistance=0 }={}) {
-    const effort = `1d${formDie}${formulaTerm(basis)}${formulaTerm(support)}`;
-    const opposition = `1d${voidDie}${formulaTerm(-opposingBasis)}${formulaTerm(-resistance)}`;
+  static fromConfig({ formDie=6, voidDie=6, formExplodes=false, voidExplodes=false, basis=0, support=0, opposingBasis=0, resistance=0 }={}) {
+    const effort = `${dieTerm(formDie, formExplodes)}${formulaTerm(basis)}${formulaTerm(support)}`;
+    const opposition = `${dieTerm(voidDie, voidExplodes)}${formulaTerm(-opposingBasis)}${formulaTerm(-resistance)}`;
     return new this(`${effort} - ${opposition}`, {}, { basis, support, opposingBasis, resistance });
   }
 
@@ -89,12 +115,10 @@ export class FistsRoll extends foundry.dice.Roll {
     if ( isPrivate ) return super._prepareChatRenderContext({ isPrivate, ...options });
     const [formDie, voidDie] = this.dice;
     const { basis, support, opposingBasis, resistance } = this.options;
-    const higher = formDie.total > voidDie.total ? "form" : formDie.total < voidDie.total ? "void" : "equal";
     return {
-      comparison: `FISTS.Roll.Higher.${higher}`,
       halves: [
-        { label: "FISTS.Roll.Form", size: `d${formDie.faces}`, rolled: formDie.total, higher: higher === "form", modifiers: [{ label: "FISTS.Roll.Basis", value: rounded(basis) }, { label: "FISTS.Roll.Support", value: rounded(support) }], totalLabel: "FISTS.Roll.Effort", total: rounded(this.effort) },
-        { label: "FISTS.Roll.Void", size: `d${voidDie.faces}`, rolled: voidDie.total, higher: higher === "void", modifiers: [{ label: "FISTS.Roll.Basis", value: rounded(opposingBasis) }, { label: "FISTS.Roll.Resistance", value: rounded(resistance) }], totalLabel: "FISTS.Roll.Opposition", total: rounded(this.opposition) }
+        { label: "FISTS.Roll.Form", ...dieContext(formDie), higher: formDie.total > voidDie.total, modifiers: [{ label: "FISTS.Roll.Basis", value: rounded(basis) }, { label: "FISTS.Roll.Support", value: rounded(support) }], totalLabel: "FISTS.Roll.Effort", total: rounded(this.effort) },
+        { label: "FISTS.Roll.Void", ...dieContext(voidDie), higher: voidDie.total > formDie.total, modifiers: [{ label: "FISTS.Roll.Basis", value: rounded(opposingBasis) }, { label: "FISTS.Roll.Resistance", value: rounded(resistance) }], totalLabel: "FISTS.Roll.Opposition", total: rounded(this.opposition) }
       ],
       result: rounded(this.total)
     };
